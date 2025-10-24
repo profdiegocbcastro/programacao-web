@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  form label {
+    display: inline;
+  }
+  form input[type=text], form input[type=email], button {
+    display: block;
+    margin: 20px 0;
+    border
+  }
+</style>
+<body>
+  <form action="">
+    <input id="nome" name="nome" type="text">
+
+    <input type="email" placeholder="Digite seu e-mail">
+    
+    <legend>Selecione o melhor horário para entrega:</legend>
+    
+    <input type="radio" id="opcao-1" name="periodo" value="manha"/>
+    <label for="opcao-1">Manhã</label>
+
+    <input type="radio" id="opcao-2" name="periodo" value="tarde"/>
+    <label for="opcao-2">Tarde</label>
+
+    <input type="radio" id="opcao-3" name="periodo" value="noite"/>
+    <label for="opcao-3">Noite</label>
+
+    <button type="button">Confirmar pedido</button>
+  </form>
+</body>
+</html>
