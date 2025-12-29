@@ -1,0 +1,117 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API em Camadas com Swagger",
+    "description": "Exemplo de sistema de gestão escolar com arquitetura Controller, Service e Repository.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/alunos": {
+      "get": { "summary": "Lista todos os alunos", "tags": ["Alunos"], "responses": { "200": { "description": "Sucesso" } } },
+      "post": {
+        "summary": "Cadastra um novo aluno",
+        "tags": ["Alunos"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string" },
+                  "email": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Criado" } }
+      }
+    },
+    "/api/alunos/{id}": {
+      "get": { "summary": "Busca aluno por ID", "tags": ["Alunos"], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "Sucesso" } } },
+      "put": {
+        "summary": "Atualiza um aluno",
+        "tags": ["Alunos"],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "type": "object", "properties": { "nome": { "type": "string" }, "email": { "type": "string" } } } } }
+        },
+        "responses": { "200": { "description": "Atualizado" } }
+      },
+      "delete": {
+        "summary": "Remove um aluno",
+        "tags": ["Alunos"],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "Removido" } }
+      }
+    },
+    "/api/cursos": {
+      "get": { "summary": "Lista todos os cursos", "tags": ["Cursos"], "responses": { "200": { "description": "Sucesso" } } },
+      "post": {
+        "summary": "Cadastra um novo curso",
+        "tags": ["Cursos"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string" },
+                  "cargaHoraria": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Curso criado" } }
+      }
+    },
+    "/api/cursos/{id}": {
+      "get": { "summary": "Busca curso por ID", "tags": ["Cursos"], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "Sucesso" } } },
+      "put": {
+        "summary": "Atualiza um curso",
+        "tags": ["Cursos"],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "type": "object", "properties": { "nome": { "type": "string" }, "cargaHoraria": { "type": "integer" } } } } }
+        },
+        "responses": { "200": { "description": "Atualizado" } }
+      },
+      "delete": {
+        "summary": "Remove um curso",
+        "tags": ["Cursos"],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "Removido" } }
+      }
+    },
+    "/api/matriculas": {
+      "get": { "summary": "Lista todas as matrículas", "tags": ["Matrículas"], "responses": { "200": { "description": "Sucesso" } } },
+      "post": {
+        "summary": "Realiza matrícula (Regra: 1 Aluno -> N Cursos)",
+        "tags": ["Matrículas"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "alunoId": { "type": "integer" },
+                  "cursoId": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Matrícula realizada" }, "400": { "description": "Erro de validação" } }
+      }
+    },
+    "/api/matriculas/{id}": {
+      "delete": {
+        "summary": "Cancela uma matrícula",
+        "tags": ["Matrículas"],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "Cancelada" } }
+      }
+    }
+  }
+}
