@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    container_name: escolar_pg_novo
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: db_gestao_escolar
+    ports:
+      - "5433:5432"  # Agora o Docker ouve na 5433 e repassa para a 5432 interna

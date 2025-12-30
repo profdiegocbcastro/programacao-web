@@ -1,0 +1,158 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Gestão Escolar - Knex.js",
+    "description": "Documentação da API desenvolvida com Express, Knex.js e PostgreSQL no Docker.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Servidor Local"
+    }
+  ],
+  "paths": {
+    "/alunos": {
+      "get": {
+        "tags": ["Alunos"],
+        "summary": "Lista todos os alunos (Knex)",
+        "responses": {
+          "200": { "description": "Lista de alunos retornada com sucesso" }
+        }
+      },
+      "post": {
+        "tags": ["Alunos"],
+        "summary": "Cadastra um novo aluno",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Aluno" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Aluno criado com sucesso" },
+          "400": { "description": "Erro na requisição ou e-mail já cadastrado" }
+        }
+      }
+    },
+    "/alunos/{id}": {
+      "get": {
+        "tags": ["Alunos"],
+        "summary": "Busca um aluno específico por ID",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": {
+          "200": { "description": "Aluno encontrado" },
+          "404": { "description": "Aluno não encontrado" }
+        }
+      },
+      "put": {
+        "tags": ["Alunos"],
+        "summary": "Atualiza dados de um aluno",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Aluno" } } }
+        },
+        "responses": { "200": { "description": "Atualizado com sucesso" } }
+      },
+      "delete": {
+        "tags": ["Alunos"],
+        "summary": "Remove um aluno do sistema",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "Removido com sucesso" } }
+      }
+    },
+    "/cursos": {
+      "get": { 
+        "tags": ["Cursos"], 
+        "summary": "Lista todos os cursos cadastrados",
+        "responses": { "200": { "description": "Sucesso" } }
+      },
+      "post": {
+        "tags": ["Cursos"],
+        "summary": "Cria um novo curso",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Curso" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Curso criado" } }
+      }
+    },
+    "/cursos/{id}": {
+      "get": { "tags": ["Cursos"], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "Sucesso" } } },
+      "put": { "tags": ["Cursos"], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Curso" } } } }, "responses": { "200": { "description": "Atualizado" } } },
+      "delete": { "tags": ["Cursos"], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "204": { "description": "Removido" } } }
+    },
+    "/matricular": {
+      "post": {
+        "tags": ["Matrículas"],
+        "summary": "Matricular aluno (Regra: 1 Aluno -> N Cursos)",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "alunoId": { "type": "integer" },
+                  "cursoId": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Matriculado com sucesso" },
+          "400": { "description": "Aluno já matriculado neste curso ou IDs inválidos" }
+        }
+      }
+    },
+    "/listar-matriculas/{id_aluno}": {
+      "get": {
+        "tags": ["Matrículas"],
+        "summary": "Busca todos os cursos vinculados a um aluno",
+        "parameters": [
+          { "name": "id_aluno", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": { "200": { "description": "Lista retornada" } }
+      }
+    },
+    "/matriculas": {
+      "get": {
+        "tags": ["Matrículas"],
+        "summary": "Lista geral de todas as matrículas",
+        "responses": { "200": { "description": "Sucesso" } }
+      }
+    },
+    "/matriculas/{id}": {
+      "delete": {
+        "tags": ["Matrículas"],
+        "summary": "Cancela/Deleta uma matrícula por ID",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "Matrícula cancelada" }, "404": { "description": "Matrícula não encontrada" } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Aluno": {
+        "type": "object",
+        "required": ["nome", "email"],
+        "properties": {
+          "nome": { "type": "string" },
+          "email": { "type": "string" }
+        }
+      },
+      "Curso": {
+        "type": "object",
+        "required": ["nome", "cargaHoraria"],
+        "properties": {
+          "nome": { "type": "string" },
+          "cargaHoraria": { "type": "integer" }
+        }
+      }
+    }
+  }
+}
