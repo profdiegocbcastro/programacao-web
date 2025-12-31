@@ -1,0 +1,180 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Gestão Escolar - Sequelize",
+    "description": "Documentação da API desenvolvida com Express e Sequelize ORM.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Servidor Local"
+    }
+  ],
+  "paths": {
+    "/alunos": {
+      "get": {
+        "tags": ["Alunos"],
+        "summary": "Lista todos os alunos",
+        "responses": { "200": { "description": "Sucesso" } }
+      },
+      "post": {
+        "tags": ["Alunos"],
+        "summary": "Cadastra um novo aluno",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Aluno" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Criado com sucesso" } }
+      }
+    },
+    "/alunos/{id}": {
+      "get": {
+        "tags": ["Alunos"],
+        "summary": "Busca um aluno por ID",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "200": { "description": "Sucesso" }, "404": { "description": "Não encontrado" } }
+      },
+      "put": {
+        "tags": ["Alunos"],
+        "summary": "Atualiza dados de um aluno",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Aluno" } } }
+        },
+        "responses": { "200": { "description": "Atualizado com sucesso" } }
+      },
+      "delete": {
+        "tags": ["Alunos"],
+        "summary": "Remove um aluno",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "Removido com sucesso" } }
+      }
+    },
+    "/cursos": {
+      "get": { 
+        "tags": ["Cursos"], 
+        "summary": "Lista todos os cursos",
+        "responses": { "200": { "description": "Sucesso" } }
+      },
+      "post": {
+        "tags": ["Cursos"],
+        "summary": "Cadastra um novo curso",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Curso" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Curso criado com sucesso" } }
+      }
+    },
+    "/cursos/{id}": {
+      "get": { 
+        "tags": ["Cursos"], 
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "200": { "description": "Sucesso" } }
+      },
+      "put": { 
+        "tags": ["Cursos"], 
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], 
+        "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Curso" } } } },
+        "responses": { "200": { "description": "Curso atualizado" } }
+      },
+      "delete": { 
+        "tags": ["Cursos"], 
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "Curso removido" } }
+      }
+    },
+    "/matricular": {
+      "post": {
+        "tags": ["Matrículas"],
+        "summary": "Realiza a matrícula",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "alunoId": { "type": "integer" },
+                  "cursoId": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Matrícula realizada" },
+          "400": { "description": "Erro na operação" }
+        }
+      }
+    },
+    "/listar-matriculas/{id_aluno}": {
+      "get": {
+        "tags": ["Matrículas"],
+        "summary": "Busca matrículas de um aluno",
+        "parameters": [
+          { "name": "id_aluno", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": { 
+          "200": { 
+            "description": "Lista de matrículas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "integer" },
+                      "alunoId": { "type": "integer" },
+                      "cursoId": { "type": "integer" }
+                    }
+                  }
+                }
+              }
+            }
+          } 
+        }
+      }
+    },
+    "/matriculas": {
+      "get": { 
+        "tags": ["Matrículas"], 
+        "summary": "Lista todas as matrículas",
+        "responses": { "200": { "description": "Sucesso" } }
+      }
+    },
+    "/matriculas/{id}": {
+      "delete": {
+        "tags": ["Matrículas"],
+        "summary": "Cancela uma matrícula",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "Sucesso" } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Aluno": {
+        "type": "object",
+        "properties": {
+          "nome": { "type": "string" },
+          "email": { "type": "string" }
+        }
+      },
+      "Curso": {
+        "type": "object",
+        "properties": {
+          "nome": { "type": "string" },
+          "cargaHoraria": { "type": "integer" }
+        }
+      }
+    }
+  }
+}
