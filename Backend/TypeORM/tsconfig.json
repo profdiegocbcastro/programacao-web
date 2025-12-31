@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es6",                      // Versão do JavaScript gerado
+    "module": "commonjs",                  // Sistema de módulos para Node.js
+    "lib": ["es6"],                       // Bibliotecas de tipos incluídas
+    "experimentalDecorators": true,        // Habilita decoradores (@Entity, @Column)
+    "emitDecoratorMetadata": true,         // Necessário para o TypeORM ler os tipos
+    "strictPropertyInitialization": false, // Evita erro de propriedades sem valor inicial
+    "esModuleInterop": true,               // Melhora a importação de módulos antigos
+    "skipLibCheck": true,                  // Pula checagem de tipos em bibliotecas externas
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,                        // Ativa checagem rigorosa de tipos
+    "outDir": "./dist",                    // Pasta onde o código compilado será salvo
+    "rootDir": "./src",                    // Onde está o seu código fonte (.ts)
+    "moduleResolution": "node",            // Como o TS procura os módulos
+    "resolveJsonModule": true              // Permite importar o swagger.json direto no código
+  },
+  "include": ["src/**/*"],                 // Arquivos que o TS deve compilar
+  "exclude": ["node_modules"]              // Pastas que o TS deve ignorar
+}

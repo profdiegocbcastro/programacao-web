@@ -1,0 +1,130 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Escola",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/alunos": {
+      "get": {
+        "tags": ["Alunos"],
+        "responses": { "200": { "description": "OK" } }
+      },
+      "post": {
+        "tags": ["Alunos"],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AlunoInput" } } }
+        },
+        "responses": { "201": { "description": "OK" } }
+      }
+    },
+    "/api/alunos/{id}": {
+      "get": {
+        "tags": ["Alunos"],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "200": { "description": "OK" } }
+      },
+      "put": {
+        "tags": ["Alunos"],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AlunoInput" } } }
+        },
+        "responses": { "200": { "description": "OK" } }
+      },
+      "delete": {
+        "tags": ["Alunos"],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "OK" } }
+      }
+    },
+    "/api/cursos": {
+      "get": {
+        "tags": ["Cursos"],
+        "responses": { "200": { "description": "OK" } }
+      },
+      "post": {
+        "tags": ["Cursos"],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CursoInput" } } }
+        },
+        "responses": { "201": { "description": "OK" } }
+      }
+    },
+    "/api/cursos/{id}": {
+      "get": {
+        "tags": ["Cursos"],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "200": { "description": "OK" } }
+      },
+      "put": {
+        "tags": ["Cursos"],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CursoInput" } } }
+        },
+        "responses": { "200": { "description": "OK" } }
+      },
+      "delete": {
+        "tags": ["Cursos"],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "OK" } }
+      }
+    },
+    "/api/matriculas": {
+      "get": {
+        "tags": ["Matrículas"],
+        "responses": { "200": { "description": "OK" } }
+      },
+      "post": {
+        "tags": ["Matrículas"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "alunoId": { "type": "integer" },
+                  "cursoId": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "OK" } }
+      }
+    },
+    "/api/matriculas/{id}": {
+      "delete": {
+        "tags": ["Matrículas"],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "OK" } }
+      }
+    },
+    "/api/listar-matriculas/{id_aluno}": {
+      "get": {
+        "tags": ["Matrículas"],
+        "parameters": [{ "name": "id_aluno", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "200": { "description": "OK" } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AlunoInput": {
+        "type": "object",
+        "properties": {
+          "nome": { "type": "string" },
+          "email": { "type": "string" }
+        }
+      },
+      "CursoInput": {
+        "type": "object",
+        "properties": {
+          "nome_curso": { "type": "string" },
+          "carga_horaria": { "type": "integer" }
+        }
+      }
+    }
+  }
+}
