@@ -10,7 +10,6 @@ class AlunoService {
     }
 
     criarAluno(dados) {
-        // Validação: Impede o cadastro se o nome ou o e-mail estiverem ausentes
         if (!dados.nome || !dados.email) {
             throw new Error("Nome e Email são obrigatórios.");
         }
@@ -20,7 +19,7 @@ class AlunoService {
     atualizarAluno(id, dados) {
         return AlunoRepository.update(id, dados);
     }
-    
+
     removerAluno(id) {
         return AlunoRepository.delete(id);
     }

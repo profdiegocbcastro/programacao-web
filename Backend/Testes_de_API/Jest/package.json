@@ -1,0 +1,22 @@
+{
+  "name": "segunda-pipeline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test:unit": "jest tests/*.unit.test.js",
+    "test:e2e": "jest tests/*.e2e.test.js",
+    "start": "node src/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "jest": "^30.3.0",
+    "supertest": "^7.2.2",
+    "swagger-ui-express": "^5.0.1"
+  }
+}

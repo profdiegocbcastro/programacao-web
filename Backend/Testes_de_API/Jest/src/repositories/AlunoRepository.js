@@ -1,37 +1,38 @@
-const db = require('../database/db');
-
 class AlunoRepository {
-    // Retorna a lista de alunos do banco
+    constructor() {
+        this.alunos = [];
+    }
+
     findAll() {
-        return db.alunos;
+        return this.alunos;
     }
-    // Busca um aluno específico pelo ID
+
     findById(id) {
-        return db.alunos.find(aluno => aluno.id === parseInt(id));
+        return this.alunos.find(a => a.id == id);
     }
-    // Cria um aluno
+
     create(aluno) {
-        const novoAluno = { id: Date.now(), ...aluno };
-        db.alunos.push(novoAluno);
+        const novoAluno = {
+            id: this.alunos.length + 1,
+            ...aluno
+        };
+        this.alunos.push(novoAluno);
         return novoAluno;
     }
-    // Atualiza os dados do aluno
-    update(id, dadosAtualizados) {
-        const index = db.alunos.findIndex(a => a.id === parseInt(id));
-        if (index !== -1) {
-            // Mescla os dados antigos com os novos
-            db.alunos[index] = { ...db.alunos[index], ...dadosAtualizados };
-            return db.alunos[index];
-        }
-        return null;
+
+    update(id, dados) {
+        const aluno = this.findById(id);
+        if (!aluno) return null;
+
+        Object.assign(aluno, dados);
+        return aluno;
     }
-    // Remove o aluno
+
     delete(id) {
-        const index = db.alunos.findIndex(a => a.id === parseInt(id));
-        if (index !== -1) {
-            return db.alunos.splice(index, 1);
-        }
-        return null;
+        const index = this.alunos.findIndex(a => a.id == id);
+        if (index === -1) return null;
+
+        return this.alunos.splice(index, 1)[0];
     }
 }
 

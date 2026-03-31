@@ -1,8 +1,7 @@
-const AlunoService = require('./src/services/AlunoService');
-const AlunoRepository = require('./src/repositories/AlunoRepository');
+const AlunoService = require('../src/services/AlunoService');
+const AlunoRepository = require('../src/repositories/AlunoRepository');
 
-// Mock do Repositório
-jest.mock('./src/repositories/AlunoRepository');
+jest.mock('../src/repositories/AlunoRepository');
 
 describe('Testes Unitários: AlunoService', () => {
 
@@ -10,10 +9,8 @@ describe('Testes Unitários: AlunoService', () => {
         jest.clearAllMocks();
     });
 
-    // TESTES DE CRIAÇÃO
     it('Deve criar um aluno com sucesso quando tem nome e email', () => {
         const dadosAluno = { nome: "Matheus", email: "Matheus@email.com" };
-        // Mock do retorno do repositório
         AlunoRepository.create.mockReturnValue({
             id: 1,
             ...dadosAluno
@@ -32,7 +29,7 @@ describe('Testes Unitários: AlunoService', () => {
         expect(() => {
             AlunoService.criarAluno(dadosInvalidos);
         }).toThrow("Nome e Email são obrigatórios.");
-        
+
         expect(AlunoRepository.create).not.toHaveBeenCalled();
     });
 
@@ -42,11 +39,10 @@ describe('Testes Unitários: AlunoService', () => {
         expect(() => {
             AlunoService.criarAluno(dadosInvalidos);
         }).toThrow("Nome e Email são obrigatórios.");
-        
+
         expect(AlunoRepository.create).not.toHaveBeenCalled();
     });
 
-    // TESTES DE BUSCA
     it('Deve retornar um aluno pelo ID', () => {
         const alunoEsperado = { id: 1, nome: "Matheus", email: "Matheus@email.com" };
         AlunoRepository.findById.mockReturnValue(alunoEsperado);
@@ -57,18 +53,17 @@ describe('Testes Unitários: AlunoService', () => {
         expect(AlunoRepository.findById).toHaveBeenCalledWith(1);
     });
 
-    // TESTES DE ATUALIZAÇÃO E REMOÇÃO
     it('Deve chamar o repositório para atualizar aluno', () => {
         const id = 1;
         const dados = { nome: "Matheus" };
-        
+
         AlunoService.atualizarAluno(id, dados);
         expect(AlunoRepository.update).toHaveBeenCalledWith(id, dados);
     });
 
     it('Deve chamar o repositório para remover aluno', () => {
         const id = 1;
-        
+
         AlunoService.removerAluno(id);
         expect(AlunoRepository.delete).toHaveBeenCalledWith(id);
     });
