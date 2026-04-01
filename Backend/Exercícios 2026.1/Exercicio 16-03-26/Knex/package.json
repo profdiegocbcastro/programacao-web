@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "express": "^5.2.1",
+    "knex": "^3.1.0",
+    "pg": "^8.20.0"
+  },
+  "name": "testando-knex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
