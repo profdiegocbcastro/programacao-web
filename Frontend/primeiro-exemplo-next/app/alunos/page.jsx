@@ -1,18 +1,20 @@
+'use client'
+
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { columns } from "./columns"
-import { CreateAlunoModal } from "./criar"
-import { DeleteAlunoModal } from "./deletar"
-import { EditAlunoModal } from "./editar"
-import { ViewAlunoModal } from "./visualizar"
+import { columns } from "./_config/columns"
+import { CreateAlunoModal } from "./_components/criar"
+import { DeleteAlunoModal } from "./_components/deletar"
+import { EditAlunoModal } from "./_components/editar"
+import { ViewAlunoModal } from "./_components/visualizar"
 import { DataTable } from "@/components/data-table"
-import { api } from "./services/api"
+import { api } from "./_services/api"
 
 async function fetchAlunos() {
   const response = await api.get("/alunos")
   return response.data
 }
 
-export function ListaAlunos() {
+export default function ListaAlunos() {
 
   const { data: alunos = [], isLoading, refetch } = useQuery({
     queryKey: ["alunos"],

@@ -1,16 +1,18 @@
+import "./globals.css"
+import { Providers } from "./providers"
+
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="pt-BR">
       <body>
-        <h1>Portal da COCSI</h1>
-
-        <hr />
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
-  );
+  )
 }
