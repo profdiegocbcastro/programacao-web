@@ -5,9 +5,9 @@ const db = knex({
     connection: {
         host: 'localhost',
         port: 5432,
-        user: 'INSIRA O USUARIO AQUI',
-        password: 'INSIRA A SENHA AQUI',
-        database: 'INSIRA A DATABASE AQUI'
+        user: 'postgres',
+        password: 'postgres',
+        database: 'postgres'
     },
     pool: {
         min: 1,

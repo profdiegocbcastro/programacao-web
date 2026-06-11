@@ -1,5 +1,6 @@
 import "./globals.css"
 import { Providers } from "./providers"
+import SidebarMenu from "@/components/sidebar"
 
 export default function RootLayout({
   children,
@@ -8,9 +9,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body>
+      <body className="flex min-h-screen">
+        <SidebarMenu/>
         <Providers>
-          {children}
+          <main className="flex-1 bg-background">
+            {children}
+          </main>
         </Providers>
       </body>
     </html>
