@@ -6,6 +6,17 @@ let cursos = [];
 
 app.use(express.json());
 
+// MIDDLEWARE DE AUTENTICAÇÃO
+// Exige uma chave de API válida (env API_KEY) no cabeçalho x-api-key
+// para acessar qualquer rota abaixo.
+app.use((req, res, next) => {
+    const apiKey = req.headers['x-api-key'];
+    if (!apiKey || apiKey !== process.env.API_KEY) {
+        return res.status(401).send("Error: Não autorizado!");
+    }
+    return next();
+});
+
 /* =============
 // CRUD ALUNOS
 // =============
