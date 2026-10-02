@@ -1,0 +1,29 @@
+{
+  "name": "exemplo-drizzle-sqlite",
+  "version": "1.0.0",
+  "description": "Exemplo Drizzle ORM + SQLite em camadas (routes/controller/service/repository), db instanciado no server",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "db:seed": "tsx src/db/seed.ts",
+    "db:reset": "node -e \"['app.db','app.db-shm','app.db-wal'].forEach(f=>require('fs').rmSync('data/'+f,{force:true}))\" && npm run db:migrate && npm run db:seed",
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.2.0",
+    "drizzle-orm": "^0.44.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.10.5",
+    "drizzle-kit": "^0.31.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
